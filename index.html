@@ -1,4 +1,14 @@
-<title>Rugby Emotions</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emotions in Motion — rugbyemotions.eu</title>
+<meta name="description" content="Proyecto Erasmus+ Sport que integra psicología deportiva y peer-support en el rugby juvenil. CRC Pozuelo Madrid & Belas Rugby Clube. Proyecto 101245524.">
+<meta property="og:title" content="Emotions in Motion · EiM">
+<meta property="og:description" content="Rugby y bienestar emocional para jóvenes de España y Portugal. Erasmus+ Sport 2025.">
+<meta property="og:image" content="https://rugbyemotions.eu/assets/logo-eim.png">
+<meta property="og:url" content="https://rugbyemotions.eu">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<link rel="icon" type="image/png" href="/assets/logo-eim.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Source+Sans+3:wght@400;600&display=swap">
 <style>
 /* Layout: full-width sections, sticky nav, trilingual tabs */
@@ -262,7 +272,19 @@ h2 {
   flex: 1 1 240px;
   max-width: 340px;
 }
-.partner-flag { font-size: 2.4rem; margin-bottom: 12px; }
+.partner-logo-wrap {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.partner-logo {
+  max-height: 100px;
+  max-width: 160px;
+  width: auto;
+  object-fit: contain;
+}
 .partner-card h3 {
   font-family: var(--font-display);
   font-weight: 700;
@@ -527,7 +549,9 @@ footer a { color: var(--yellow); text-decoration: none; }
   </h2>
   <div class="partners-row">
     <div class="partner-card">
-      <div class="partner-flag">🇪🇸</div>
+      <div class="partner-logo-wrap">
+        <img src="/assets/logo-crc.png" alt="CRC Pozuelo Madrid" class="partner-logo">
+      </div>
       <h3>CRC Pozuelo Madrid</h3>
       <p>Club Deportivo Básico de Rugby CRC Pozuelo Madrid — Madrid, España</p>
       <span class="partner-role">
@@ -537,7 +561,9 @@ footer a { color: var(--yellow); text-decoration: none; }
       </span>
     </div>
     <div class="partner-card">
-      <div class="partner-flag">🇵🇹</div>
+      <div class="partner-logo-wrap">
+        <img src="/assets/logo-belas.png" alt="Belas Rugby Clube" class="partner-logo">
+      </div>
       <h3>Belas Rugby Clube</h3>
       <p>Belas Rugby Clube — Sintra, Portugal</p>
       <span class="partner-role ben">
