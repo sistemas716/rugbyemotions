@@ -1,0 +1,595 @@
+<title>Rugby Emotions</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+/* Layout: full-width sections, sticky nav, trilingual tabs */
+:root {
+  --green:   #1d6b3e;
+  --green2:  #2a8a52;
+  --yellow:  #e8b84b;
+  --dark:    #0f2d1c;
+  --bg:      #f7f9f7;
+  --fg:      #1a2e22;
+  --muted:   #5a7060;
+  --card-bg: #ffffff;
+  --border:  #d4e4da;
+  --hero-bg: #0f2d1c;
+  --font-display: 'Montserrat', sans-serif;
+  --font-body: 'Source Sans 3', sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d1f14; --fg: #e2ede6; --muted: #8aaa94;
+    --card-bg: #162a1e; --border: #2a4535;
+    --hero-bg: #071209;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d1f14; --fg: #e2ede6; --muted: #8aaa94;
+  --card-bg: #162a1e; --border: #2a4535;
+  --hero-bg: #071209;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.65;
+  padding-inline: 0;
+}
+
+/* NAV */
+nav {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 100;
+  background: var(--dark);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  height: 56px;
+  gap: 16px;
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.nav-logo svg { height: 38px; width: auto; }
+.nav-logo-text {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1rem;
+  color: var(--yellow);
+  letter-spacing: -.01em;
+  white-space: nowrap;
+  line-height: 1.1;
+}
+.nav-logo-text span { color: #fff; }
+.nav-links {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+.nav-links a {
+  color: #cde0d5;
+  text-decoration: none;
+  font-size: .85rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--yellow); }
+.lang-switcher {
+  display: flex;
+  gap: 6px;
+}
+.lang-btn {
+  background: none;
+  border: 1px solid #3a5a45;
+  color: #8aaa94;
+  font-family: var(--font-body);
+  font-size: .75rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 3px;
+  cursor: pointer;
+  letter-spacing: .06em;
+  transition: all .2s;
+}
+.lang-btn.active, .lang-btn:hover {
+  background: var(--yellow);
+  color: var(--dark);
+  border-color: var(--yellow);
+}
+
+/* EiM LOGO SVG styles */
+.eim-logo-hero {
+  display: block;
+  margin: 0 auto 28px;
+  height: 120px;
+  width: auto;
+  filter: drop-shadow(0 4px 24px #00000055);
+}
+
+/* HERO */
+.hero {
+  background: var(--hero-bg);
+  color: #fff;
+  padding: 80px 24px 72px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% 100%, #1d6b3e44, transparent);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  font-size: .8rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 20px;
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(2.4rem, 6vw, 4.2rem);
+  line-height: 1.05;
+  text-wrap: balance;
+  margin-bottom: 8px;
+}
+.hero h1 em {
+  font-style: normal;
+  color: var(--yellow);
+}
+.hero-sub {
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+  color: #b0d0bc;
+  margin-top: 18px;
+  max-width: 600px;
+  margin-inline: auto;
+  text-wrap: balance;
+}
+.hero-badges {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 36px;
+}
+.badge {
+  background: #ffffff14;
+  border: 1px solid #ffffff22;
+  color: #d0e8da;
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 20px;
+}
+.badge.highlight {
+  background: var(--yellow);
+  color: var(--dark);
+  border-color: var(--yellow);
+}
+
+/* SECTIONS */
+section {
+  max-width: 960px;
+  margin-inline: auto;
+  padding: 64px 24px;
+}
+section.wide { max-width: 100%; padding-inline: 24px; }
+.section-label {
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--green2);
+  margin-bottom: 10px;
+}
+h2 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  line-height: 1.15;
+  text-wrap: balance;
+  margin-bottom: 20px;
+}
+.lead {
+  font-size: 1.1rem;
+  color: var(--muted);
+  max-width: 640px;
+  margin-bottom: 40px;
+  text-wrap: balance;
+}
+
+/* CARDS GRID */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 28px 24px;
+}
+.card-icon {
+  font-size: 2rem;
+  margin-bottom: 14px;
+  line-height: 1;
+}
+.card h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+.card p {
+  font-size: .92rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* PARTNERS */
+.partners-row {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 32px;
+}
+.partner-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 28px 32px;
+  text-align: center;
+  flex: 1 1 240px;
+  max-width: 340px;
+}
+.partner-flag { font-size: 2.4rem; margin-bottom: 12px; }
+.partner-card h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 6px;
+}
+.partner-card p { font-size: .88rem; color: var(--muted); }
+.partner-role {
+  display: inline-block;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  background: var(--green);
+  color: #fff;
+  padding: 3px 10px;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+.partner-role.ben { background: #1a5280; }
+
+/* EU FUNDING STRIP */
+.eu-strip {
+  background: var(--green);
+  color: #fff;
+  padding: 28px 24px;
+  text-align: center;
+}
+.eu-strip p {
+  font-size: .88rem;
+  max-width: 760px;
+  margin-inline: auto;
+  line-height: 1.6;
+  opacity: .9;
+}
+.eu-logo-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.eu-stars {
+  font-size: 1.4rem;
+  letter-spacing: 2px;
+  color: var(--yellow);
+}
+.eu-label {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: .9rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+/* FOOTER */
+footer {
+  background: var(--dark);
+  color: #8aaa94;
+  text-align: center;
+  padding: 32px 24px;
+  font-size: .82rem;
+}
+footer a { color: var(--yellow); text-decoration: none; }
+
+/* LANG CONTENT */
+[data-lang] { display: none; }
+[data-lang].visible { display: block; }
+[data-lang-inline] { display: none; }
+[data-lang-inline].visible { display: inline; }
+
+/* DIVIDER */
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 0 24px;
+}
+
+@media (max-width: 600px) {
+  .nav-links { display: none; }
+  .hero { padding: 56px 20px 52px; }
+  nav { padding: 0 16px; }
+}
+</style>
+
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="/assets/logo-eim.png" alt="EiM logo" style="height:38px;width:auto;">
+    <div class="nav-logo-text">Rugby<span>Emotions</span></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#project" data-lang="es" class="visible">Proyecto</a><a href="#project" data-lang="en">Project</a><a href="#project" data-lang="pt">Projeto</a></li>
+    <li><a href="#activities" data-lang="es" class="visible">Actividades</a><a href="#activities" data-lang="en">Activities</a><a href="#activities" data-lang="pt">Atividades</a></li>
+    <li><a href="#partners" data-lang="es" class="visible">Socios</a><a href="#partners" data-lang="en">Partners</a><a href="#partners" data-lang="pt">Parceiros</a></li>
+  </ul>
+  <div class="lang-switcher">
+    <button class="lang-btn active" onclick="setLang('es')">ES</button>
+    <button class="lang-btn" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" onclick="setLang('pt')">PT</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <img class="eim-logo-hero" src="/assets/logo-eim.png" alt="EiM – Emotions in Motion">
+  <p class="hero-eyebrow">Erasmus+ Sport · 101245524</p>
+  <h1>
+    <span data-lang="es" class="visible">Emociones en <em>movimiento</em></span>
+    <span data-lang="en">Emotions in <em>Motion</em></span>
+    <span data-lang="pt">Emoções em <em>Movimento</em></span>
+  </h1>
+  <p class="hero-sub">
+    <span data-lang="es" class="visible">Rugby y bienestar emocional para jóvenes de España y Portugal.</span>
+    <span data-lang="en">Rugby and emotional well-being for young athletes in Spain and Portugal.</span>
+    <span data-lang="pt">Rugby e bem-estar emocional para jovens em Espanha e Portugal.</span>
+  </p>
+  <div class="hero-badges">
+    <span class="badge highlight">EiM</span>
+    <span class="badge">🏉 Rugby</span>
+    <span class="badge">🧠 <span data-lang="es" class="visible">Psicología deportiva</span><span data-lang="en">Sports psychology</span><span data-lang="pt">Psicologia desportiva</span></span>
+    <span class="badge">🇪🇺 Erasmus+ Sport 2025</span>
+    <span class="badge">🇪🇸 España · 🇵🇹 Portugal</span>
+  </div>
+</div>
+
+<!-- PROJECT -->
+<section id="project">
+  <p class="section-label">
+    <span data-lang="es" class="visible">El Proyecto</span>
+    <span data-lang="en">The Project</span>
+    <span data-lang="pt">O Projeto</span>
+  </p>
+  <h2>
+    <span data-lang="es" class="visible">Rugby como herramienta de crecimiento personal</span>
+    <span data-lang="en">Rugby as a tool for personal growth</span>
+    <span data-lang="pt">Rugby como ferramenta de crescimento pessoal</span>
+  </h2>
+  <p class="lead">
+    <span data-lang="es" class="visible">Emotions in Motion es una iniciativa Erasmus+ Sport de 18 meses que integra psicología deportiva y un sistema de apoyo entre iguales en los entrenamientos de rugby para jóvenes de 13 a 18 años (Sub14, Sub16 y Sub18).</span>
+    <span data-lang="en">Emotions in Motion is an 18-month Erasmus+ Sport initiative that integrates sports psychology and a peer-support system into regular rugby training for young athletes aged 13–18 (U14, U16, U18).</span>
+    <span data-lang="pt">Emotions in Motion é uma iniciativa Erasmus+ Sport de 18 meses que integra psicologia desportiva e um sistema de apoio entre pares nos treinos de rugby para jovens dos 13 aos 18 anos (Sub14, Sub16 e Sub18).</span>
+  </p>
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">🎯</div>
+      <h3><span data-lang="es" class="visible">Objetivo</span><span data-lang="en">Goal</span><span data-lang="pt">Objetivo</span></h3>
+      <p>
+        <span data-lang="es" class="visible">Mejorar el bienestar emocional y las habilidades de vida de los jóvenes rugbistas a través de talleres y un programa de peer-support.</span>
+        <span data-lang="en">Improve the emotional well-being and life skills of young rugby players through workshops and a peer-support programme.</span>
+        <span data-lang="pt">Melhorar o bem-estar emocional e as competências de vida dos jovens jogadores de rugby através de workshops e um programa de apoio entre pares.</span>
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-icon">👥</div>
+      <h3><span data-lang="es" class="visible">Público</span><span data-lang="en">Audience</span><span data-lang="pt">Público</span></h3>
+      <p>
+        <span data-lang="es" class="visible">Jóvenes de la Generación Z (13–18 años), entrenadores, familias y clubes de rugby de España y Portugal.</span>
+        <span data-lang="en">Generation Z youth (13–18), coaches, families, and rugby clubs across Spain and Portugal.</span>
+        <span data-lang="pt">Jovens da Geração Z (13–18), treinadores, famílias e clubes de rugby em Espanha e Portugal.</span>
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📖</div>
+      <h3><span data-lang="es" class="visible">Resultado principal</span><span data-lang="en">Main output</span><span data-lang="pt">Resultado principal</span></h3>
+      <p>
+        <span data-lang="es" class="visible">Guía digital de acceso libre <em>«EiM: Building Resilience in Rugby»</em> en español, portugués e inglés.</span>
+        <span data-lang="en">Open-access digital guide <em>"EiM: Building Resilience in Rugby"</em> in Spanish, Portuguese, and English.</span>
+        <span data-lang="pt">Guia digital de acesso livre <em>«EiM: Building Resilience in Rugby»</em> em espanhol, português e inglês.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ACTIVITIES -->
+<section id="activities">
+  <p class="section-label">
+    <span data-lang="es" class="visible">Actividades</span>
+    <span data-lang="en">Activities</span>
+    <span data-lang="pt">Atividades</span>
+  </p>
+  <h2>
+    <span data-lang="es" class="visible">¿Qué hacemos?</span>
+    <span data-lang="en">What we do</span>
+    <span data-lang="pt">O que fazemos</span>
+  </h2>
+  <p class="lead">
+    <span data-lang="es" class="visible">Tres líneas de acción complementarias que combinan formación, apoyo entre jugadores y difusión comunitaria.</span>
+    <span data-lang="en">Three complementary lines of action combining coach training, player support, and community outreach.</span>
+    <span data-lang="pt">Três linhas de ação complementares que combinam formação, apoio entre jogadores e disseminação comunitária.</span>
+  </p>
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">🏋️</div>
+      <h3>
+        <span data-lang="es" class="visible">Talleres para entrenadores</span>
+        <span data-lang="en">Coach workshops</span>
+        <span data-lang="pt">Workshops para treinadores</span>
+      </h3>
+      <p>
+        <span data-lang="es" class="visible">4 talleres de formación en psicología deportiva impartidos con el apoyo de un experto externo. Resiliencia, liderazgo y trabajo en equipo.</span>
+        <span data-lang="en">4 training workshops in sports psychology, delivered with an external expert. Resilience, leadership, and teamwork.</span>
+        <span data-lang="pt">4 workshops de formação em psicologia desportiva, com apoio de especialista externo. Resiliência, liderança e trabalho em equipa.</span>
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🤝</div>
+      <h3>
+        <span data-lang="es" class="visible">Sistema peer-support</span>
+        <span data-lang="en">Peer-support system</span>
+        <span data-lang="pt">Sistema de apoio entre pares</span>
+      </h3>
+      <p>
+        <span data-lang="es" class="visible">Red de apoyo mutuo entre jugadores: Buddy System, sesiones de reflexión post-partido y actividades de team-building.</span>
+        <span data-lang="en">Player mutual-support network: Buddy System, post-game reflection sessions, and collaborative team-building activities.</span>
+        <span data-lang="pt">Rede de apoio mútuo entre jogadores: Buddy System, sessões de reflexão pós-jogo e atividades de team-building.</span>
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📣</div>
+      <h3>
+        <span data-lang="es" class="visible">Open Days</span>
+        <span data-lang="en">Open Days</span>
+        <span data-lang="pt">Open Days</span>
+      </h3>
+      <p>
+        <span data-lang="es" class="visible">Dos jornadas de puertas abiertas, una en Madrid y otra en Lisboa, para familias, clubes y la comunidad.</span>
+        <span data-lang="en">Two open-day events, one in Madrid and one in Lisbon, for families, clubs, and the wider community.</span>
+        <span data-lang="pt">Dois eventos de portas abertas, um em Madrid e outro em Lisboa, para famílias, clubes e comunidade.</span>
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌐</div>
+      <h3>
+        <span data-lang="es" class="visible">Difusión digital</span>
+        <span data-lang="en">Digital dissemination</span>
+        <span data-lang="pt">Disseminação digital</span>
+      </h3>
+      <p>
+        <span data-lang="es" class="visible">Redes sociales, webinars interactivos con expertos e InfoPoints en torneos y partidos de ambos clubes.</span>
+        <span data-lang="en">Social media, interactive webinars with experts, and InfoPoints at tournaments and matches of both clubs.</span>
+        <span data-lang="pt">Redes sociais, webinars interativos com especialistas e InfoPoints em torneios e jogos de ambos os clubes.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PARTNERS -->
+<section id="partners">
+  <p class="section-label">
+    <span data-lang="es" class="visible">Socios</span>
+    <span data-lang="en">Partners</span>
+    <span data-lang="pt">Parceiros</span>
+  </p>
+  <h2>
+    <span data-lang="es" class="visible">Dos clubes, una misión</span>
+    <span data-lang="en">Two clubs, one mission</span>
+    <span data-lang="pt">Dois clubes, uma missão</span>
+  </h2>
+  <div class="partners-row">
+    <div class="partner-card">
+      <div class="partner-flag">🇪🇸</div>
+      <h3>CRC Pozuelo Madrid</h3>
+      <p>Club Deportivo Básico de Rugby CRC Pozuelo Madrid — Madrid, España</p>
+      <span class="partner-role">
+        <span data-lang="es" class="visible">Coordinador</span>
+        <span data-lang="en">Coordinator</span>
+        <span data-lang="pt">Coordenador</span>
+      </span>
+    </div>
+    <div class="partner-card">
+      <div class="partner-flag">🇵🇹</div>
+      <h3>Belas Rugby Clube</h3>
+      <p>Belas Rugby Clube — Sintra, Portugal</p>
+      <span class="partner-role ben">
+        <span data-lang="es" class="visible">Socio</span>
+        <span data-lang="en">Partner</span>
+        <span data-lang="pt">Parceiro</span>
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- EU STRIP -->
+<div class="eu-strip">
+  <div class="eu-logo-row">
+    <span class="eu-stars">★ ★ ★ ★ ★</span>
+    <span class="eu-label">Funded by the European Union</span>
+    <span class="eu-stars">★ ★ ★ ★ ★</span>
+  </div>
+  <p>
+    <span data-lang="es" class="visible">Proyecto cofinanciado por la Unión Europea en el marco del programa Erasmus+ Sport 2025 (ERASMUS-SPORT-2025-SSCP). Los puntos de vista y las opiniones expresadas son únicamente los del consorcio y no reflejan necesariamente los de la Unión Europea o la EACEA.</span>
+    <span data-lang="en">Co-funded by the European Union under the Erasmus+ Sport 2025 programme (ERASMUS-SPORT-2025-SSCP). Views and opinions expressed are solely those of the consortium and do not necessarily reflect those of the European Union or EACEA.</span>
+    <span data-lang="pt">Cofinanciado pela União Europeia no âmbito do programa Erasmus+ Sport 2025 (ERASMUS-SPORT-2025-SSCP). As opiniões expressas são da exclusiva responsabilidade do consórcio e não refletem necessariamente as da União Europeia ou da EACEA.</span>
+  </p>
+</div>
+
+<footer>
+  <p>rugbyemotions.eu · EiM – Emotions in Motion · Project 101245524</p>
+  <p style="margin-top:6px">
+    <span data-lang="es" class="visible">Contacto: </span>
+    <span data-lang="en">Contact: </span>
+    <span data-lang="pt">Contacto: </span>
+    CRC Pozuelo Madrid
+  </p>
+</footer>
+
+<script>
+function setLang(lang) {
+  // Update buttons
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent.toLowerCase() === lang);
+  });
+  // Show/hide block elements
+  document.querySelectorAll('[data-lang]').forEach(el => {
+    el.classList.toggle('visible', el.dataset.lang === lang);
+  });
+  // Show/hide inline elements
+  document.querySelectorAll('[data-lang-inline]').forEach(el => {
+    el.classList.toggle('visible', el.dataset.langInline === lang);
+  });
+  localStorage.setItem('eim-lang', lang);
+}
+// Init
+const saved = (() => { try { return localStorage.getItem('eim-lang'); } catch(e) { return null; } })();
+setLang(saved || 'es');
+</script>
